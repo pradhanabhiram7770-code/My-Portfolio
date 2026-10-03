@@ -116,29 +116,6 @@
     <div class="ambient-grid"></div>
   </div>
 
-  <!-- Volumetric Bulb Light Cone -->
-  <div class="bulb-light-cone" id="bulb-light-cone"></div>
-
-  <!-- Bounded interactive light bulb: real spring-pendulum physics inside a defined move arena -->
-  <div class="bulb-stage" id="bulb-stage" data-bulb-state="up">
-    <div class="bulb-move-area" aria-hidden="true"></div>
-
-    <!-- Phone only: pull thread shown while the bulb is stowed, tap it to lower the bulb -->
-    <button class="bulb-thread" id="bulb-thread" type="button" aria-label="Pull the light bulb down"></button>
-
-    <div class="realistic-bulb-wrapper" id="realistic-bulb" title="Click to turn the light on/off">
-      <div class="bulb-wire"></div>
-      <div class="bulb-assembly">
-        <img class="bulb-img" id="toggle-bulb-img" src="bulb-dark.png" alt="Glowing light bulb theme toggle" />
-
-        <div class="bulb-cord">
-          <div class="bulb-cord-handle"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Glassmorphic Sticky Header -->
   <header>
     <div class="container">
       <nav>
@@ -149,8 +126,7 @@
           <span>Abhiram<span class="gradient-text">.core</span></span>
         </a>
 
-        <!-- Right Aligned Nav Group (Keeps center space clear for bulb) -->
-        <div class="nav-right-group">
+                <div class="nav-right-group">
           <ul class="nav-menu" id="nav-menu">
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -161,10 +137,7 @@
 
           <div class="nav-actions">
             <!-- Theme Toggle Switch (Pure Black <-> Pure White) -->
-            <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
-              <i class="fa-solid fa-moon moon-icon"></i>
-              <i class="fa-solid fa-sun sun-icon"></i>
-            </button>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Theme"><i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i><span class="theme-toggle-indicator"></span></button>
 
             <!-- Mobile Nav Toggle -->
             <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="Open Navigation Menu">

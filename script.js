@@ -471,9 +471,9 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(tick);
   })();
 
-  // 1. Theme Switcher (Pure Black <-> Pure White) with Realistic Bulb
+  // 1. Theme Switcher (Pure Black <-> Pure White)
   const themeToggleBtn = document.getElementById('theme-toggle');
-  const realisticBulb = document.getElementById('realistic-bulb');
+  
   const htmlRoot = document.documentElement;
 
   function updateThemeImages(theme) {
@@ -483,9 +483,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroImg) heroImg.src = imageSrc;
     if (navImg) navImg.src = imageSrc;
 
-    const bulbImg = document.getElementById('toggle-bulb-img');
-    const bulbSrc = theme === 'light' ? 'bulb-light.png' : 'bulb-dark.png';
-    if (bulbImg) bulbImg.src = bulbSrc;
+    
+    
+    
   }
 
   // Retrieve saved theme or default to 'dark' (pure black)
@@ -493,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
   htmlRoot.setAttribute('data-theme', savedTheme);
   updateThemeImages(savedTheme);
 
-  function toggleThemeWithBulbEffect() {
+  function toggleTheme() {
     const currentTheme = htmlRoot.getAttribute('data-theme');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     htmlRoot.setAttribute('data-theme', newTheme);
@@ -501,18 +501,18 @@ document.addEventListener('DOMContentLoaded', () => {
     updateThemeImages(newTheme);
 
     // Kick the bulb with a real physics impulse for a lively swing
-    if (typeof kickBulb === 'function') kickBulb();
+    
   }
 
   if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', toggleThemeWithBulbEffect);
+    themeToggleBtn.addEventListener('click', toggleTheme);
   }
 
   if (realisticBulb) {
     realisticBulb.addEventListener('click', () => {
-      if (!bulbIsLowered()) return; // stowed on phones: the thread must be pulled first
-      toggleThemeWithBulbEffect();
-      setBulbState('down'); // every tap restarts the auto-retract countdown
+      if (!function bulbIsLowered(){return true;}()) return; // stowed on phones: the thread must be pulled first
+      toggleTheme();
+      // setBulbState('down'); // every tap restarts the auto-retract countdown
     });
   }
 
@@ -527,24 +527,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const BULB_IDLE_MS = 2 * 60 * 1000;
   let bulbIdleTimer = 0;
 
-  function setBulbState(state) {
+  function // setBulbState(state) {
     if (!bulbStage) return;
     bulbStage.dataset.bulbState = state;
     clearTimeout(bulbIdleTimer);
     if (state === 'down') {
-      bulbIdleTimer = setTimeout(() => setBulbState('up'), BULB_IDLE_MS);
+      bulbIdleTimer = setTimeout(() => // setBulbState('up'), BULB_IDLE_MS);
     }
   }
 
-  function bulbIsLowered() {
+  function function bulbIsLowered(){return true;}() {
     return !phoneViewport.matches || (bulbStage && bulbStage.dataset.bulbState === 'down');
   }
 
-  function syncBulbStateToViewport() {
+  function // syncBulbStateToViewport() {
     if (!bulbStage) return;
     // Entering the phone layout always stows the bulb back up to its thread.
     if (phoneViewport.matches) {
-      setBulbState('up');
+      // setBulbState('up');
     } else {
       clearTimeout(bulbIdleTimer);
       bulbStage.dataset.bulbState = 'down';
@@ -554,15 +554,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bulbThread) {
     bulbThread.addEventListener('click', () => {
       if (!phoneViewport.matches) return;
-      setBulbState('down');
-      if (typeof dropBulb === 'function') dropBulb();
+      // setBulbState('down');
+      
     });
   }
 
-  syncBulbStateToViewport();
-  phoneViewport.addEventListener('change', syncBulbStateToViewport);
+  // syncBulbStateToViewport();
+  phoneViewport.addEventListener('change', // syncBulbStateToViewport);
 
-  function initBulbPhysics(wrapper) {
+  function _initBulbPhysics(wrapper) {
     const stage = bulbStage || wrapper.parentElement || document.body;
     const wire = wrapper.querySelector('.bulb-wire');
     const assembly = wrapper.querySelector('.bulb-assembly');
@@ -677,13 +677,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Called from the theme toggle to deliver a playful impulse.
-    window.kickBulb = function () {
+    // window.kickBulb = function () {
       vR += Math.max(40, Math.min(180, L0 * 0.8));
       vTheta += (Math.random() < 0.5 ? -1 : 1) * (1.4 + Math.random() * 0.9);
     };
 
     // Small drop so the bulb unfurls when the pull thread is tapped.
-    window.dropBulb = function () {
+    // window.dropBulb = function () {
       vR += 70 * SCALE;
       vTheta *= 0.3;
     };
@@ -699,7 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (realisticBulb) initBulbPhysics(realisticBulb);
+  // bulb init(realisticBulb);
 
   // 1.1 Typewriter Texting Animation for Hero Title
   const typewriterOutput = document.getElementById('typewriter-output');
@@ -1282,7 +1282,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Sync after every theme toggle (button + realistic bulb)
   if (themeToggleBtn) themeToggleBtn.addEventListener('click', syncMetaTheme);
-  if (realisticBulb) realisticBulb.addEventListener('click', syncMetaTheme);
+  // bulb removed('click', syncMetaTheme);
 
   // 7.1 Bottom navigation ("tab bar")
   document.body.classList.add('has-tabbar');
