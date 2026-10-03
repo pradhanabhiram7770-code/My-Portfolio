@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---------- Interactive listeners ----------
-    if (skipBtn) if(skipBtn) skipBtn.addEventListener('click', skip);;
+    if (skipBtn) skipBtn.addEventListener('click', skip);
     loader.addEventListener('click', (e) => {
       if (e.target === loader) spawnClickRing(e.clientX, e.clientY);
     });
