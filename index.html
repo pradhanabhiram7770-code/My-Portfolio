@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Abhiram Pradhan | Full-Stack Developer · Data Analytics · AI/ML · Cloud</title>
+  <meta name="description" content="Portfolio of Abhiram Pradhan - Full-Stack Web Developer, Database Administration, Data Analytics, AI/ML and Cloud Engineering skilled in SQL, Python, React and modern web applications.">
+
+  <!-- PWA / App-like Meta Tags -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000000" id="meta-theme-color" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Abhiram.core" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png" />
+
+  <link rel="stylesheet" href="style.css?v=1.0" />
+
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- AOS (Animate on Scroll) -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body class="loader-active">
+  <!-- App-style Toast Notifications -->
+  <div class="app-toast-container" id="app-toast-container" aria-live="polite" aria-label="Notifications"></div>
+
+  <!-- Offline / Back-online Status Banner -->
+  <div class="app-status-banner" id="app-status-banner" hidden>
+    <div class="app-status-banner-inner">
+      <i class="fa-solid fa-wifi" id="app-status-icon"></i>
+      <span id="app-status-text">You are offline</span>
+    </div>
+  </div>
+
+  <!-- Pull-to-Refresh Indicator (native app gesture) -->
+  <div class="app-pull-indicator" id="app-pull-indicator" aria-hidden="true">
+    <div class="app-pull-icon" id="app-pull-icon">
+      <i class="fa-solid fa-arrows-down-to-line"></i>
+    </div>
+    <span id="app-pull-text">Pull to refresh</span>
+  </div>
+
+  <!-- Interactive Intro Loader: particles, cursor glow, terminal typing, bouncing dot -->
+  <div class="loader-screen" id="loader-screen" role="status" aria-live="polite" aria-label="Loading Abhiram portfolio">
+    <!-- Mouse-reactive particle canvas -->
+    <canvas class="loader-particles" id="loader-particles" aria-hidden="true"></canvas>
+
+    <!-- Cursor-following glow orb -->
+    <div class="loader-cursor-glow" id="loader-cursor-glow" aria-hidden="true"></div>
+
+    <div class="loader-logo" id="loader-logo">
+      <!-- Profile silhouette that pulses in -->
+      <div class="loader-avatar-ring" id="loader-avatar-ring">
+        <img src="profile-dark.jpg" alt="" class="loader-avatar-img" id="loader-avatar-img" />
+      </div>
+
+      <div class="loader-word" id="loader-word">
+        <span class="ltr" style="--i:0">A</span>
+        <span class="ltr" style="--i:1">B</span>
+        <span class="ltr" style="--i:2">H</span>
+        <span class="ltr" style="--i:3">I</span>
+        <span class="ltr" style="--i:4">R</span>
+        <span class="ltr" style="--i:5">A</span>
+        <span class="ltr" style="--i:6">M</span>
+        <span class="dev-dot" id="dev-dot" aria-hidden="true">.</span>
+        <span class="dev-ltr" style="--i:7">C</span>
+        <span class="dev-ltr" style="--i:8">O</span>
+        <span class="dev-ltr" style="--i:9">R</span>
+        <span class="dev-ltr" style="--i:10">E</span>
+      </div>
+      <div class="loader-hopper" id="loader-hopper" aria-hidden="true"></div>
+
+      <!-- Terminal-style typing line -->
+      <div class="loader-terminal" id="loader-terminal" aria-hidden="true">
+        <span class="terminal-prompt">&gt;</span>
+        <span class="terminal-text" id="terminal-text"></span>
+        <span class="terminal-cursor">_</span>
+      </div>
+
+      <div class="loader-sub">
+        DATA <span class="dot">&bull;</span> WEB <span class="dot">&bull;</span>
+        <span class="accent">AI</span> <span class="dot">&bull;</span> CLOUD
+      </div>
+    </div>
+
+    <!-- Interactive click rings that ripple outward -->
+    <div class="loader-click-rings" id="loader-click-rings" aria-hidden="true"></div>
+
+    <div class="loader-progress" aria-hidden="true">
+      <div class="loader-progress-bar" id="loader-progress-bar"></div>
+    </div>
+
+    <div class="loader-percent" id="loader-percent" aria-hidden="true">0%</div>
+
+    <button class="loader-skip" id="loader-skip" type="button">
+      <span>Let's Go</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+
+  <!-- Ambient Glow & Background Studio Spotlight Matrix -->
+  <div class="bg-ambient-layer">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-grid"></div>
+  </div>
+
+  <!-- Volumetric Bulb Light Cone -->
+  <div class="bulb-light-cone" id="bulb-light-cone"></div>
+
+  <!-- Bounded interactive light bulb: real spring-pendulum physics inside a defined move arena -->
+  <div class="bulb-stage" id="bulb-stage" data-bulb-state="up">
+    <div class="bulb-move-area" aria-hidden="true"></div>
+
+    <!-- Phone only: pull thread shown while the bulb is stowed, tap it to lower the bulb -->
+    <button class="bulb-thread" id="bulb-thread" type="button" aria-label="Pull the light bulb down"></button>
+
+    <div class="realistic-bulb-wrapper" id="realistic-bulb" title="Click to turn the light on/off">
+      <div class="bulb-wire"></div>
+      <div class="bulb-assembly">
+        <img class="bulb-img" id="toggle-bulb-img" src="bulb-dark.png" alt="Glowing light bulb theme toggle" />
+
+        <div class="bulb-cord">
+          <div class="bulb-cord-handle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Glassmorphic Sticky Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="nav-brand">
+          <div class="brand-avatar">
+            <img src="profile-dark.jpg" alt="Abhiram Pradhan" class="brand-avatar-img" id="nav-profile-img" />
+          </div>
+          <span>Abhiram<span class="gradient-text">.core</span></span>
+        </a>
+
+        <!-- Right Aligned Nav Group (Keeps center space clear for bulb) -->
+        <div class="nav-right-group">
+          <ul class="nav-menu" id="nav-menu">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#resume-certificates">Resume &amp; Certs</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+
+          <div class="nav-actions">
+            <!-- Theme Toggle Switch (Pure Black <-> Pure White) -->
+            <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+              <i class="fa-solid fa-moon moon-icon"></i>
+              <i class="fa-solid fa-sun sun-icon"></i>
+            </button>
+
+            <!-- Mobile Nav Toggle -->
+            <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="Open Navigation Menu">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- Left: Glowing Portrait Container -->
+        <div class="hero-avatar-wrapper" data-aos="fade-right">
+          <div class="avatar-glow-ring"></div>
+          <div class="avatar-card">
+            <img src="profile-dark.jpg" alt="Abhiram Pradhan Portrait" class="avatar-img" id="hero-profile-img" />
+          </div>
+        </div>
+
+        <!-- Right: Bio & Call to Actions -->
+        <div class="hero-content" data-aos="fade-left" data-aos-delay="100">
+          <div class="hero-status-pill">
+            <i class="fa-solid fa-terminal" style="color: var(--accent-cyan);"></i>
+            <span>Full-Stack · Data · AI/ML &amp; RAG</span>
+          </div>
+
+          <h1 class="hero-title">
+            Hello World, this is <span class="gradient-text">Abhiram Pradhan</span>
+          </h1>
+
+          <div class="hero-typing-badge">
+            <span class="typing-intro">Knowledge in </span>
+            <span id="typewriter-output"></span><span class="typewriter-cursor">|</span>
+          </div>
+
+          <p class="hero-subtitle">
+            Turning Complex Ideas into Clean, Fast &amp; Intelligent Products.
+          </p>
+
+          <p class="hero-bio">
+            Passionate developer with hands-on expertise in <strong>Full-Stack Web Development</strong>, <strong>Database Administration</strong>, <strong>Data Analytics</strong>, <strong>AI/ML &amp; RAG Systems</strong> and <strong>Cloud Deployment</strong> using <strong>SQL</strong>, <strong>Python</strong> and modern frontend frameworks.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#contact" class="btn btn-primary">
+              <span>Let's Talk</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="ABHIRAM_RESUME.pdf" download class="btn btn-secondary">
+              <i class="fa-solid fa-download"></i>
+              <span>Download CV</span>
+            </a>
+          </div>
+
+          <!-- Social Links -->
+          <div class="hero-socials">
+            <a href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer" class="social-pill github" title="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/your-linkedin-handle/" target="_blank" rel="noopener noreferrer" class="social-pill linkedin" title="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="social-pill whatsapp" title="WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section (Bento Grid) -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-user"></i> About Me</span>
+        <h2 class="section-title">Background &amp; Education</h2>
+        <p class="section-subtitle">A blend of analytical engineering foundations and sleek frontend design craft.</p>
+      </div>
+
+      <div class="bento-grid">
+
+        <!-- Left Bento Card: Bio & Highlights -->
+        <div class="bento-card" data-aos="fade-right">
+          <h3 class="bento-card-title">
+            <i class="fa-solid fa-sparkles"></i> Who I Am
+          </h3>
+          <p class="about-text">
+            I build things for the web — from relational data models and APIs up to a polished, accessible interface. My day-to-day stack spans <strong>Full-Stack Development</strong>, <strong>SQL databases</strong>, <strong>Python</strong>, <strong>Data Analytics</strong> and <strong>AI/ML integrations</strong>.
+          </p>
+          <p class="about-text">
+            Comfortable with <strong>Git &amp; GitHub</strong> workflows, end-to-end database design, API development, containerised deployments, and shipping AI copilots grounded in real project knowledge.
+          </p>
+
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">Core Tech Stacks</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">Featured Projects</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Dedication</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Bento Card: Anime S-Shape Academic Journey -->
+        <div class="bento-card academic-bento-card" data-aos="fade-left" data-aos-delay="100">
+          <div class="bento-card-header">
+            <h3 class="bento-card-title">
+              <i class="fa-solid fa-graduation-cap"></i> Academic Journey
+            </h3>
+            <span class="journey-hint-badge"><i class="fa-solid fa-bolt"></i> Click Milestone to Explore</span>
+          </div>
+          <div class="journey-roadmap-container" id="academic-journey-roadmap">
+
+            <!-- SVG S-Curve with dots ON the path -->
+            <svg class="journey-svg-canvas" viewBox="0 0 420 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="laserGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur1" />
+                  <feGaussianBlur stdDeviation="7" result="blur2" />
+                  <feMerge>
+                    <feMergeNode in="blur2" />
+                    <feMergeNode in="blur1" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="nodeGlow" x="-60%" y="-60%" width="220%" height="220%">
+                  <feGaussianBlur stdDeviation="5" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <linearGradient id="laserGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#38bdf8" />
+                  <stop offset="50%" stop-color="#00f0ff" />
+                  <stop offset="100%" stop-color="#818cf8" />
+                </linearGradient>
+              </defs>
+
+              <!--
+                S-Curve path:
+                  Start   = (42, 30)   -> Dot 1 = 10th school (top-left)
+                  Mid     = (210, 148) -> Dot 2 = 12th / Intermediate
+                  End     = (378, 262) -> Dot 3 = B.Tech destination
+              -->
+              <path class="journey-track-base" id="journey-base-track"
+                d="M 42 30 C 380 30, 380 148, 210 148 C 40 148, 40 262, 378 262" />
+
+              <!-- Active laser highlight (draws from start up to selected dot) -->
+              <path class="journey-track-active" id="journey-active-laser"
+                d="M 42 30 C 380 30, 380 148, 210 148 C 40 148, 40 262, 378 262"
+                filter="url(#laserGlow)" />
+
+              <!-- Traveling photon (bounces only along highlighted segment) -->
+              <circle id="journey-photon-orb" r="4" fill="#00f0ff"
+                filter="url(#laserGlow)" opacity="0" />
+
+              <!-- DOT 1: 10th school (start = 42, 30) -->
+              <circle class="svg-milestone-dot" id="dot-1" data-step="1"
+                cx="42" cy="30" r="12"
+                onclick="selectAcademicMilestone(1)" />
+              <text class="dot-fa-icon" x="42" y="35" text-anchor="middle"
+                pointer-events="none">&#xf549;</text><!-- school icon -->
+
+              <!-- DOT 2: 12th / Intermediate (centre inflection = 210, 148) -->
+              <circle class="svg-milestone-dot" id="dot-2" data-step="2"
+                cx="210" cy="148" r="12"
+                onclick="selectAcademicMilestone(2)" />
+              <text class="dot-fa-icon" x="210" y="153" text-anchor="middle"
+                pointer-events="none">&#xf518;</text><!-- book icon -->
+
+              <!-- DOT 3: B.Tech destination (end = 378, 262) - bigger star node -->
+              <circle class="svg-milestone-dot dest-dot" id="dot-3" data-step="3"
+                cx="378" cy="262" r="15"
+                onclick="selectAcademicMilestone(3)" />
+              <text class="dot-fa-icon" x="378" y="268" text-anchor="middle"
+                font-size="13" pointer-events="none">&#xf19d;</text><!-- graduation cap -->
+
+            </svg>
+
+            <!-- Floating Label Pills aligned to SVG dot positions -->
+            <div class="journey-labels-wrapper">
+
+              <!-- Label 1: 10th school (near dot-1) -->
+              <div class="journey-label lbl-1" id="label-1" onclick="selectAcademicMilestone(1)">
+                <span class="lbl-tag">10th Board · 2021</span>
+                <span class="lbl-name">Secondary School</span>
+              </div>
+
+              <!-- Label 2: 12th / Intermediate (near dot-2) -->
+              <div class="journey-label lbl-2" id="label-2" onclick="selectAcademicMilestone(2)">
+                <span class="lbl-tag">12th / Intermediate · 2023</span>
+                <span class="lbl-name">Senior Secondary</span>
+              </div>
+
+              <!-- Label 3: B.Tech destination (near dot-3) -->
+              <div class="journey-label lbl-3" id="label-3" onclick="selectAcademicMilestone(3)">
+                <span class="lbl-tag">B.Tech CSE · 2023–2027</span>
+                <span class="lbl-name">Your College <span class="dest-badge">🎯</span></span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Dynamic Spotlight HUD Card: Details of Clicked Institution -->
+          <div class="journey-spotlight-card" id="journey-spotlight-display">
+
+            <div class="spotlight-header">
+              <div class="spotlight-logo-wrap">
+                <img src="college-logo.jpg" alt="Institution Logo" class="spotlight-logo" id="spotlight-img" />
+              </div>
+              <div class="spotlight-titles">
+                <div class="spotlight-meta-row">
+                  <span class="spotlight-badge" id="spotlight-badge">Current Degree</span>
+                  <span class="spotlight-year" id="spotlight-year"><i class="fa-regular fa-calendar"></i> 2023 -- 2027</span>
+                </div>
+                <h4 class="spotlight-inst-name" id="spotlight-name">Your College of Engineering &amp; Technology</h4>
+                <p class="spotlight-board" id="spotlight-board">Affiliating University · Your City</p>
+              </div>
+            </div>
+
+            <div class="spotlight-body">
+              <a class="spotlight-score-pill" id="spotlight-result-pill" href="10TH_RESULT.pdf" target="_blank" rel="noopener noreferrer" title="Click to view result">
+                <span class="score-label">Score / CGPA:</span>
+                <span class="score-value" id="spotlight-score">0.00 CGPA</span>
+              </a>
+              <p class="spotlight-desc" id="spotlight-desc">
+                Pursuing Bachelor of Technology in Computer Science &amp; Engineering with core specialization in Database Management, AI/ML, Data Engineering and Backend Architecture.
+              </p>
+              <div class="spotlight-action-row">
+                <a href="https://example.com" target="_blank" rel="noopener noreferrer" class="spotlight-link-btn" id="spotlight-link">
+                  <span>Visit Institution</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-layer-group"></i> Tech Stack</span>
+        <h2 class="section-title">Skills &amp; Technologies</h2>
+        <p class="section-subtitle">Core technical tools and practical knowledge I use to craft robust applications and data pipelines.</p>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-category" data-aos="fade-up">
+          <div class="skill-category-heading"><i class="fa-solid fa-display" aria-hidden="true"></i><h3>Frontend</h3><span>04 skills</span></div>
+          <div class="skill-category-grid">
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-html5"><i class="fa-brands fa-html5" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">HTML5</h4><p class="skill-desc">Semantic markup, responsive structure, accessibility &amp; SEO standards.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-css3"><i class="fa-brands fa-css3-alt" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">CSS3</h4><p class="skill-desc">Glassmorphism, Grid, Flexbox, keyframe animation &amp; responsive themes.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-js"><i class="fa-brands fa-js" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">JavaScript</h4><p class="skill-desc">DOM interaction, ES6+, asynchronous APIs &amp; polished user experiences.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-react"><i class="fa-brands fa-react" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">React</h4><p class="skill-desc">Component-based UI, hooks, state management &amp; modern SPA development.</p></div></div>
+          </div>
+        </div>
+
+        <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
+          <div class="skill-category-heading"><i class="fa-solid fa-server" aria-hidden="true"></i><h3>Backend</h3><span>05 skills</span></div>
+          <div class="skill-category-grid">
+            <div class="skill-card skill-card-featured"><div class="skill-icon-wrap skill-icon-flask"><i class="fa-solid fa-flask" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Flask</h4><p class="skill-desc">Python APIs, routes, templates, forms &amp; backend integrations.</p></div></div>
+            <div class="skill-card skill-card-featured"><div class="skill-icon-wrap skill-icon-api"><i class="fa-solid fa-plug" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">REST API</h4><p class="skill-desc">Resource-based endpoints, JSON contracts, validation &amp; service integration.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-sql"><i class="fa-solid fa-database" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">SQL</h4><p class="skill-desc">Relational design, complex queries, indexing &amp; query tuning.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-plsql"><i class="fa-brands fa-oracle" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">PL/SQL</h4><p class="skill-desc">Procedures, functions, packages, triggers &amp; database cursors.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-firebase"><i class="fa-solid fa-fire" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Firebase</h4><p class="skill-desc">Realtime database, authentication, hosting &amp; cloud functions.</p></div></div>
+          </div>
+        </div>
+
+        <div class="skill-category" data-aos="fade-up" data-aos-delay="150">
+          <div class="skill-category-heading"><i class="fa-solid fa-chart-column" aria-hidden="true"></i><h3>Data Analytics</h3><span>04 skills</span></div>
+          <div class="skill-category-grid">
+            <div class="skill-card skill-card-featured"><div class="skill-icon-wrap skill-icon-python"><i class="fa-brands fa-python" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Python Libraries</h4><p class="skill-desc">Pandas, NumPy, Matplotlib, Seaborn &amp; scikit-learn for analysis.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-powerbi"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Power BI</h4><p class="skill-desc">Interactive dashboards, DAX queries, data models &amp; business insights.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-sql"><i class="fa-solid fa-database" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">SQL</h4><p class="skill-desc">Complex queries, joins, aggregations &amp; analytics for data insights.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-excel"><i class="fa-solid fa-file-excel" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Excel</h4><p class="skill-desc">Pivot tables, formulas, functions, Power Query &amp; data visualization.</p></div></div>
+          </div>
+        </div>
+
+        <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+          <div class="skill-category-heading"><i class="fa-solid fa-brain" aria-hidden="true"></i><h3>AI &amp; RAG</h3><span>03 skills</span></div>
+          <div class="skill-category-grid">
+            <div class="skill-card skill-card-featured"><div class="skill-icon-wrap skill-icon-rag"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">RAG Models</h4><p class="skill-desc">Retrieval-augmented generation pipelines grounded in project knowledge.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-huggingface"><i class="fa-solid fa-face-smile" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Hugging Face</h4><p class="skill-desc">Open models, embeddings, inference &amp; transformer workflows.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-chroma"><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">ChromaDB</h4><p class="skill-desc">Vector storage and semantic retrieval for context-aware AI systems.</p></div></div>
+          </div>
+        </div>
+
+        <div class="skill-category" data-aos="fade-up" data-aos-delay="250">
+          <div class="skill-category-heading"><i class="fa-solid fa-rocket" aria-hidden="true"></i><h3>Deployment</h3><span>03 skills</span></div>
+          <div class="skill-category-grid">
+            <div class="skill-card skill-card-featured"><div class="skill-icon-wrap skill-icon-git"><i class="fa-brands fa-git-alt" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Git &amp; GitHub</h4><p class="skill-desc">Version control, branching, pull requests &amp; release workflows.</p><a class="skill-account-link" href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer">View my GitHub account <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-netlify"><i class="fa-solid fa-cloud" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Netlify</h4><p class="skill-desc">Static site hosting, serverless functions &amp; continuous deployment.</p></div></div>
+            <div class="skill-card"><div class="skill-icon-wrap skill-icon-render"><i class="fa-solid fa-server" aria-hidden="true"></i></div><div class="skill-info"><h4 class="skill-title">Render</h4><p class="skill-desc">Cloud hosting for web apps, APIs, databases &amp; static sites.</p></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-code"></i> Portfolio</span>
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">Real-world applications spanning full-stack development, data engineering and frontend craft.</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="50">
+          <div class="project-thumb-wrap project-slider" data-slider>
+            <div class="slider-track">
+              <img src="project1-1.png" alt="Project One screenshot" class="project-thumb slider-slide" />
+              <img src="project1-2.png" alt="Project One screenshot" class="project-thumb slider-slide" />
+              <img src="project1-3.png" alt="Project One screenshot" class="project-thumb slider-slide" />
+            </div>
+            <span class="project-status-badge">Full-Stack</span>
+            <button type="button" class="slider-arrow left" data-slider-prev aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" class="slider-arrow right" data-slider-next aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="slider-dots" data-slider-dots></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Project One</h3>
+            <div class="project-tags">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Flask</span>
+              <span class="tech-tag">SQL</span>
+            </div>
+            <p class="skill-desc">
+              Short, punchy description of what this project does, the problem it solves and the stack behind it.
+            </p>
+            <a href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: fit-content; margin-top: 4px; padding: 8px 18px; font-size: 0.85rem;">
+              <i class="fa-brands fa-github"></i>
+              <span>View Source</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="project-thumb-wrap project-slider" data-slider>
+            <div class="slider-track">
+              <img src="project2-1.png" alt="Project Two screenshot" class="project-thumb slider-slide" />
+              <img src="project2-2.png" alt="Project Two screenshot" class="project-thumb slider-slide" />
+              <img src="project2-3.png" alt="Project Two screenshot" class="project-thumb slider-slide" />
+            </div>
+            <span class="project-status-badge">Database System</span>
+            <button type="button" class="slider-arrow left" data-slider-prev aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" class="slider-arrow right" data-slider-next aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="slider-dots" data-slider-dots></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Project Two</h3>
+            <div class="project-tags">
+              <span class="tech-tag">Oracle</span>
+              <span class="tech-tag">PL/SQL</span>
+              <span class="tech-tag">Python</span>
+            </div>
+            <p class="skill-desc">
+              Describe the schema, stored procedures and workflows that make this system useful at scale.
+            </p>
+            <a href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: fit-content; margin-top: 4px; padding: 8px 18px; font-size: 0.85rem;">
+              <i class="fa-brands fa-github"></i>
+              <span>View Source</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="project-thumb-wrap project-slider" data-slider>
+            <div class="slider-track">
+              <img src="project3-1.png" alt="Project Three screenshot" class="project-thumb slider-slide" />
+              <img src="project3-2.png" alt="Project Three screenshot" class="project-thumb slider-slide" />
+              <img src="project3-3.png" alt="Project Three screenshot" class="project-thumb slider-slide" />
+            </div>
+            <span class="project-status-badge">Analytics</span>
+            <button type="button" class="slider-arrow left" data-slider-prev aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" class="slider-arrow right" data-slider-next aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="slider-dots" data-slider-dots></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Project Three</h3>
+            <div class="project-tags">
+              <span class="tech-tag">Power BI</span>
+              <span class="tech-tag">DAX</span>
+              <span class="tech-tag">SQL</span>
+            </div>
+            <p class="skill-desc">
+              Explain the KPI model, time intelligence and insights this dashboard delivers to stakeholders.
+            </p>
+            <a href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: fit-content; margin-top: 4px; padding: 8px 18px; font-size: 0.85rem;">
+              <i class="fa-brands fa-github"></i>
+              <span>View Source</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="project-thumb-wrap">
+            <img src="project4-1.png" alt="Project Four screenshot" class="project-thumb" />
+            <span class="project-status-badge">Web App</span>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Project Four</h3>
+            <div class="project-tags">
+              <span class="tech-tag">Flask</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">HTML5</span>
+            </div>
+            <p class="skill-desc">
+              A quick line on the core feature, the users it serves and how it was deployed.
+            </p>
+            <a href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: fit-content; margin-top: 4px; padding: 8px 18px; font-size: 0.85rem;">
+              <i class="fa-brands fa-github"></i>
+              <span>View Source</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="project-thumb-wrap project-slider" data-slider>
+            <div class="slider-track">
+              <img src="project5-1.png" alt="Project Five screenshot" class="project-thumb slider-slide" />
+              <img src="project5-2.png" alt="Project Five screenshot" class="project-thumb slider-slide" />
+            </div>
+            <span class="project-status-badge">AI Application</span>
+            <button type="button" class="slider-arrow left" data-slider-prev aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" class="slider-arrow right" data-slider-next aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="slider-dots" data-slider-dots></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Project Five</h3>
+            <div class="project-tags">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">RAG</span>
+              <span class="tech-tag">ChromaDB</span>
+            </div>
+            <p class="skill-desc">
+              Describe the AI pipeline: retrieval layer, model choice, and the real outcome it produced.
+            </p>
+            <a href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: fit-content; margin-top: 4px; padding: 8px 18px; font-size: 0.85rem;">
+              <i class="fa-brands fa-github"></i>
+              <span>View Source</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume & Certificates Section -->
+  <section id="resume-certificates" class="resume-cert-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-file-lines"></i> Credentials</span>
+        <h2 class="section-title">Resume &amp; Certifications</h2>
+        <p class="section-subtitle">Verified professional qualifications and detailed curriculum vitae.</p>
+      </div>
+
+      <div class="resume-cert-grid">
+
+        <!-- Resume Card -->
+        <div class="resume-box" data-aos="fade-right">
+          <div>
+            <span class="section-tag"><i class="fa-solid fa-user-tie"></i> Curriculum Vitae</span>
+            <h3 class="bento-card-title" style="margin-top: 14px;">Abhiram Pradhan - Resume</h3>
+            <p class="about-text">
+              Detailed document highlighting technical proficiencies, project experience, academic record, and implementations.
+            </p>
+          </div>
+
+          <a href="ABHIRAM_RESUME.pdf" download class="btn btn-primary" style="width: fit-content;">
+            <i class="fa-solid fa-file-pdf"></i>
+            <span>Download Official Resume</span>
+          </a>
+        </div>
+
+        <!-- Certificate Card: Online Credential -->
+        <a href="https://www.coursera.org/" target="_blank" rel="noopener noreferrer" class="cert-card" data-aos="fade-left">
+          <div class="cert-preview-wrap">
+            <img src="certificate-1.jpg" alt="Certificate preview" class="cert-preview" />
+          </div>
+          <div class="cert-info">
+            <div>
+              <h4 class="cert-title">Certificate Title Goes Here</h4>
+              <span class="edu-meta">Coursera Verified Credential</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square cert-link-icon"></i>
+          </div>
+        </a>
+
+        <!-- Certificate Card: PDF Preview Modal -->
+        <button type="button" class="cert-card cert-card-btn" data-aos="fade-left" data-cert-modal="certificate-modal">
+          <div class="cert-preview-wrap">
+            <img src="certificate-2.png" alt="Certificate preview" class="cert-preview cert-preview-pdf"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="cert-pdf-thumb">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>Certificate</span>
+            </div>
+          </div>
+          <div class="cert-info">
+            <div>
+              <h4 class="cert-title">Internship / Internship Certificate</h4>
+              <span class="edu-meta"><i class="fa-solid fa-certificate"></i> CERT-ID-0000</span>
+            </div>
+            <span class="cert-view-pill"><i class="fa-solid fa-magnifying-glass-plus"></i> Preview</span>
+          </div>
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificate Preview Modal -->
+  <div class="cert-modal" id="certificate-modal" aria-hidden="true">
+    <div class="cert-modal-overlay" data-cert-close></div>
+    <div class="cert-modal-content" role="dialog" aria-modal="true" aria-label="Certificate preview">
+      <button type="button" class="cert-modal-close" data-cert-close aria-label="Close preview">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="cert-modal-header">
+        <h4 class="cert-modal-title"><i class="fa-solid fa-certificate"></i> Internship Certificate</h4>
+        <span class="edu-meta">CERT-ID-0000 &middot; Abhiram Pradhan</span>
+      </div>
+      <div class="cert-modal-body">
+        <iframe class="cert-modal-frame" src="CERTIFICATE.pdf" title="Certificate" loading="lazy"></iframe>
+      </div>
+      <div class="cert-modal-footer">
+        <a href="CERTIFICATE.pdf" download class="btn btn-primary">
+          <i class="fa-solid fa-download"></i>
+          <span>Download Certificate</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-paper-plane"></i> Get In Touch</span>
+        <h2 class="section-title">Let's Connect &amp; Collaborate</h2>
+        <p class="section-subtitle">Have a project in mind, an opportunity, or want to say hello? Drop a message below!</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- Left: Form -->
+        <div class="contact-form-card" data-aos="fade-right">
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="name" class="form-label">Your Name</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="e.g. John Doe" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Your Email</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="e.g. john@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project or inquiry..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Send Message</span>
+            </button>
+          </form>
+
+          <div id="form-message" class="form-message"></div>
+        </div>
+
+        <!-- Right: Direct Quick Connect Tiles -->
+        <div class="direct-connect-cards" data-aos="fade-left">
+
+          <!-- WhatsApp Card -->
+          <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="direct-card whatsapp">
+            <div class="direct-icon-wrap whatsapp-icon">
+              <i class="fa-brands fa-whatsapp"></i>
+            </div>
+            <div class="direct-info">
+              <h4 class="direct-title">Direct WhatsApp</h4>
+              <span class="direct-sub">+91 00000 00000 &middot; Fast response</span>
+            </div>
+          </a>
+
+          <!-- LinkedIn Card -->
+          <a href="https://www.linkedin.com/in/your-linkedin-handle/" target="_blank" rel="noopener noreferrer" class="direct-card linkedin">
+            <div class="direct-icon-wrap linkedin-icon">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+            <div class="direct-info">
+              <h4 class="direct-title">LinkedIn Profile</h4>
+              <span class="direct-sub">Connect with Abhiram Pradhan</span>
+            </div>
+          </a>
+
+          <!-- GitHub Card -->
+          <a href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer" class="direct-card github">
+            <div class="direct-icon-wrap github-icon">
+              <i class="fa-brands fa-github"></i>
+            </div>
+            <div class="direct-info">
+              <h4 class="direct-title">GitHub Repositories</h4>
+              <span class="direct-sub">Explore source codes &amp; projects</span>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; <span id="current-year">2026</span> Abhiram Pradhan. Crafted with pure passion &amp; precision.</p>
+        <a href="#" class="back-to-top">
+          <span>Back to Top</span>
+          <i class="fa-solid fa-arrow-up"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- APK-style Bottom Navigation Bar -->
+  <nav class="app-tabbar" id="app-tabbar" aria-label="App navigation">
+    <button class="app-tab is-active" data-tab="#hero" type="button">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </button>
+    <button class="app-tab" data-tab="#about" type="button">
+      <i class="fa-solid fa-user"></i>
+      <span>About</span>
+    </button>
+    <button class="app-tab" data-tab="#skills" type="button">
+      <i class="fa-solid fa-layer-group"></i>
+      <span>Skills</span>
+    </button>
+    <button class="app-tab" data-tab="#projects" type="button">
+      <i class="fa-solid fa-code"></i>
+      <span>Projects</span>
+    </button>
+    <button class="app-tab" data-tab="more" type="button">
+      <i class="fa-solid fa-ellipsis"></i>
+      <span>More</span>
+    </button>
+    <div class="app-tab-indicator" id="app-tab-indicator" aria-hidden="true"></div>
+  </nav>
+
+  <!-- App-style Action Sheet (More menu) -->
+  <div class="app-sheet-backdrop" id="app-sheet-backdrop" aria-hidden="true"></div>
+  <div class="app-sheet" id="app-sheet" role="dialog" aria-modal="true" aria-label="More options">
+    <div class="app-sheet-handle" aria-hidden="true"></div>
+    <div class="app-sheet-header">
+      <h4 class="app-sheet-title">Explore</h4>
+      <button type="button" class="app-sheet-close" id="app-sheet-close" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="app-sheet-list">
+      <a href="#resume-certificates" class="app-sheet-item" data-sheet-link>
+        <i class="fa-solid fa-file-lines"></i>
+        <span>
+          <strong>Resume &amp; Certs</strong>
+          <small>Credentials &amp; curriculum vitae</small>
+        </span>
+      </a>
+      <a href="#contact" class="app-sheet-item" data-sheet-link>
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>
+          <strong>Get in Touch</strong>
+          <small>Let's connect &amp; collaborate</small>
+        </span>
+      </a>
+      <a href="https://github.com/your-github-handle" target="_blank" rel="noopener noreferrer" class="app-sheet-item">
+        <i class="fa-brands fa-github"></i>
+        <span>
+          <strong>GitHub</strong>
+          <small>Explore source codes</small>
+        </span>
+      </a>
+      <a href="https://www.linkedin.com/in/your-linkedin-handle/" target="_blank" rel="noopener noreferrer" class="app-sheet-item">
+        <i class="fa-brands fa-linkedin-in"></i>
+        <span>
+          <strong>LinkedIn</strong>
+          <small>Connect with me</small>
+        </span>
+      </a>
+      <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="app-sheet-item">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>
+          <strong>WhatsApp</strong>
+          <small>Fast response</small>
+        </span>
+      </a>
+    </div>
+    <button type="button" class="app-install-section" id="app-install-btn" hidden>
+      <i class="fa-solid fa-download"></i>
+      <span>Install App</span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js?v=1.0"></script>
+  <script>
+    // Register the service worker for offline / installable PWA support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+      // Auto-reload when the service worker serves a new build
+      let swReloading = false;
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'NEW_VERSION' && !swReloading) {
+          swReloading = true;
+          window.location.reload();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
