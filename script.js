@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (dist < influence && dist > 0.01) {
           // Follow force scaled by cursor speed: still cursor = gentle, fast = dots chase harder.
-          const pull = (1 - dist / influence) * (0.3 + flowMag * (isSmallScreen ? 0.62 : 0.42));
+          const pull = flowMag * 2.6;
           p.vx += (dx / dist) * pull;
           p.vy += (dy / dist) * pull;
         }
@@ -364,23 +364,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---------- Intro timing ----------
     let lastPct = -1;
     function tick(now) {
-      const pct = Math.min(100, ((now - start) / DURATION) * 100);
-      if (bar) bar.style.width = pct + '%';
-      if (percentEl) {
-        const rounded = Math.round(pct);
-        if (rounded !== lastPct) {
-          percentEl.textContent = rounded + '%';
-          lastPct = rounded;
+      try {
+        const pct = Math.min(100, ((now - start) / DURATION) * 100); if(!isFinite(pct)) return;
+        if (bar) bar.style.width = pct + '%';
+        if (percentEl) {
+          const rounded = Math.round(pct);
+          if (rounded !== lastPct) {
+            percentEl.textContent = rounded + '%';
+            lastPct = rounded;
+          }
         }
-      }
 
-      if (now - start >= HOP_START && !hopRaf) runHops();
+        if (now - start >= HOP_START && !hopRaf) runHops();
 
-      if (pct < 100) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        // Intro finished - reveal the "Let's Go" button and wait for the click.
-        loader.classList.add('is-ready');
+        if (pct < 100) {
+          rafId = requestAnimationFrame(tick);
+        } else {
+          // Intro finished - reveal the "Let's Go" button and wait for the click.
+          loader.classList.add('is-ready');
+        }
+      } catch (e) {
+        // Fail gracefully - skip loader if something goes wrong
+        finish();
       }
     }
 
@@ -467,7 +472,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     runTerminal();
 
-    // Loader stays on screen until the user clicks "Let's Go" - no auto-dismiss.
+    // Auto-proceed after a short safety delay if user doesn't click
+    setTimeout(() => { if (!done) finish(); }, 12000);
     requestAnimationFrame(tick);
   })();
 
@@ -479,13 +485,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateThemeImages(theme) {
     const heroImg = document.getElementById('hero-profile-img');
     const navImg = document.getElementById('nav-profile-img');
+    const loaderImg = document.getElementById('loader-avatar-img');
     const imageSrc = theme === 'light' ? 'profile-light.jpg' : 'profile-dark.jpg';
     if (heroImg) heroImg.src = imageSrc;
     if (navImg) navImg.src = imageSrc;
-
-    
-    
-    
+    if (loaderImg) loaderImg.src = imageSrc;
   }
 
   // Retrieve saved theme or default to 'dark' (pure black)
@@ -501,22 +505,15 @@ document.addEventListener('DOMContentLoaded', () => {
     updateThemeImages(newTheme);
 
     // Kick the bulb with a real physics impulse for a lively swing
-    
+    if (typeof window.kickBulb === 'function') window.kickBulb();
   }
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', toggleTheme);
   }
 
-  if (realisticBulb) {
-    realisticBulb.addEventListener('click', () => {
-      if (!function bulbIsLowered(){return true;}()) return; // stowed on phones: the thread must be pulled first
-      toggleTheme();
-      // setBulbState('down'); // every tap restarts the auto-retract countdown
-    });
-  }
-
   // 1.2 Interactive Real-Physics Bulb: spring-pendulum inside a bounded move arena
+  const realisticBulb = document.getElementById('bulb-assembly');
   const bulbStage = document.getElementById('bulb-stage');
 
   // 1.3 Phone behaviour: the bulb hangs stowed (thread only), is pulled down by
@@ -527,40 +524,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const BULB_IDLE_MS = 2 * 60 * 1000;
   let bulbIdleTimer = 0;
 
-  function // setBulbState(state) {
+  function setBulbState(state) {
     if (!bulbStage) return;
     bulbStage.dataset.bulbState = state;
     clearTimeout(bulbIdleTimer);
     if (state === 'down') {
-      bulbIdleTimer = setTimeout(() => // setBulbState('up'), BULB_IDLE_MS);
+      bulbIdleTimer = setTimeout(() => setBulbState('up'), BULB_IDLE_MS);
     }
   }
 
-  function function bulbIsLowered(){return true;}() {
+  function bulbIsLowered() {
     return !phoneViewport.matches || (bulbStage && bulbStage.dataset.bulbState === 'down');
   }
 
-  function // syncBulbStateToViewport() {
+  function syncBulbStateToViewport() {
     if (!bulbStage) return;
     // Entering the phone layout always stows the bulb back up to its thread.
     if (phoneViewport.matches) {
-      // setBulbState('up');
+      setBulbState('up');
     } else {
       clearTimeout(bulbIdleTimer);
       bulbStage.dataset.bulbState = 'down';
     }
   }
 
-  if (bulbThread) {
-    bulbThread.addEventListener('click', () => {
-      if (!phoneViewport.matches) return;
-      // setBulbState('down');
-      
+  if (realisticBulb) {
+    realisticBulb.addEventListener('click', () => {
+      if (!bulbIsLowered()) return; // stowed on phones: the thread must be pulled first
+      toggleTheme();
+      setBulbState('down'); // every tap restarts the auto-retract countdown
     });
   }
 
-  // syncBulbStateToViewport();
-  phoneViewport.addEventListener('change', // syncBulbStateToViewport);
+  if (bulbThread) {
+    bulbThread.addEventListener('click', () => {
+      if (!phoneViewport.matches) return;
+      setBulbState('down');
+      if (typeof window.dropBulb === 'function') window.dropBulb();
+    });
+  }
+
+  syncBulbStateToViewport();
+  phoneViewport.addEventListener('change', syncBulbStateToViewport);
 
   function _initBulbPhysics(wrapper) {
     const stage = bulbStage || wrapper.parentElement || document.body;
@@ -677,13 +682,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Called from the theme toggle to deliver a playful impulse.
-    // window.kickBulb = function () {
+    window.kickBulb = function () {
       vR += Math.max(40, Math.min(180, L0 * 0.8));
       vTheta += (Math.random() < 0.5 ? -1 : 1) * (1.4 + Math.random() * 0.9);
     };
 
     // Small drop so the bulb unfurls when the pull thread is tapped.
-    // window.dropBulb = function () {
+    window.dropBulb = function () {
       vR += 70 * SCALE;
       vTheta *= 0.3;
     };
@@ -699,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // bulb init(realisticBulb);
+  if (realisticBulb) _initBulbPhysics(realisticBulb);
 
   // 1.1 Typewriter Texting Animation for Hero Title
   const typewriterOutput = document.getElementById('typewriter-output');
@@ -1282,7 +1287,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Sync after every theme toggle (button + realistic bulb)
   if (themeToggleBtn) themeToggleBtn.addEventListener('click', syncMetaTheme);
-  // bulb removed('click', syncMetaTheme);
+  if (realisticBulb) realisticBulb.addEventListener('click', syncMetaTheme);
 
   // 7.1 Bottom navigation ("tab bar")
   document.body.classList.add('has-tabbar');
