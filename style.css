@@ -2815,11 +2815,11 @@ body.loader-active {
   100% { opacity: 0;   transform: scale(2.6); }
 }
 
-/* -- Avatar silhouette that pulses in above the wordmark -- */
+/* -- Brand mark that pulses in above the wordmark -- */
 .loader-avatar-ring {
-  width: 64px;
-  height: 64px;
-  border-radius: 18px;
+  width: clamp(84px, 18vw, 104px);
+  height: clamp(84px, 18vw, 104px);
+  border-radius: 24px;
   padding: 3px;
   background: var(--accent-gradient);
   box-shadow: 0 0 24px rgba(56, 189, 248, 0.35);
@@ -2832,7 +2832,9 @@ body.loader-active {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 15px;
+  object-position: center;
+  background: #000000;
+  border-radius: 21px;
   display: block;
 }
 
@@ -3056,8 +3058,13 @@ body.loader-active {
   }
 
   .loader-avatar-ring {
-    width: 52px;
-    height: 52px;
+    width: 78px;
+    height: 78px;
+    border-radius: 20px;
+  }
+
+  .loader-avatar-ring img {
+    border-radius: 17px;
   }
 }
 
