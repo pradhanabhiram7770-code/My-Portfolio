@@ -31,7 +31,7 @@
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="loader-active">
   <!-- App-style Toast Notifications -->
   <div class="app-toast-container" id="app-toast-container" aria-live="polite" aria-label="Notifications"></div>
 
@@ -52,6 +52,64 @@
   </div>
 
 
+
+  <!-- Interactive Intro Loader: particles, cursor glow, terminal typing, bouncing dot -->
+  <div class="loader-screen" id="loader-screen" role="status" aria-live="polite" aria-label="Loading Abhiram portfolio">
+    <!-- Mouse-reactive particle canvas -->
+    <canvas class="loader-particles" id="loader-particles" aria-hidden="true"></canvas>
+
+    <!-- Cursor-following glow orb -->
+    <div class="loader-cursor-glow" id="loader-cursor-glow" aria-hidden="true"></div>
+
+    <div class="loader-logo" id="loader-logo">
+      <!-- Profile silhouette that pulses in -->
+      <div class="loader-avatar-ring" id="loader-avatar-ring">
+        <img src="abhi-black-bg.png" alt="" class="loader-avatar-img" id="loader-avatar-img" />
+      </div>
+
+      <div class="loader-word" id="loader-word">
+        <span class="ltr" style="--i:0">A</span>
+        <span class="ltr" style="--i:1">B</span>
+        <span class="ltr" style="--i:2">H</span>
+        <span class="ltr" style="--i:3">I</span>
+        <span class="ltr" style="--i:4">R</span>
+        <span class="ltr" style="--i:5">A</span>
+        <span class="ltr" style="--i:6">M</span>
+        <span class="dev-dot" id="dev-dot" aria-hidden="true">.</span>
+        <span class="dev-ltr" style="--i:7">C</span>
+        <span class="dev-ltr" style="--i:8">O</span>
+        <span class="dev-ltr" style="--i:9">R</span>
+        <span class="dev-ltr" style="--i:10">E</span>
+      </div>
+      <div class="loader-hopper" id="loader-hopper" aria-hidden="true"></div>
+
+      <!-- Terminal-style typing line -->
+      <div class="loader-terminal" id="loader-terminal" aria-hidden="true">
+        <span class="terminal-prompt">&gt;</span>
+        <span class="terminal-text" id="terminal-text"></span>
+        <span class="terminal-cursor">_</span>
+      </div>
+
+      <div class="loader-sub">
+        EMBEDDED <span class="dot">&bull;</span> ARDUINO <span class="dot">&bull;</span>
+        <span class="accent">IOT</span> <span class="dot">&bull;</span> CIRCUITS
+      </div>
+    </div>
+
+    <!-- Interactive click rings that ripple outward -->
+    <div class="loader-click-rings" id="loader-click-rings" aria-hidden="true"></div>
+
+    <div class="loader-progress" aria-hidden="true">
+      <div class="loader-progress-bar" id="loader-progress-bar"></div>
+    </div>
+
+    <div class="loader-percent" id="loader-percent" aria-hidden="true">0%</div>
+
+    <button class="loader-skip" id="loader-skip" type="button">
+      <span>Let's Go</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
 
   <!-- Ambient Glow & Background Studio Spotlight Matrix -->
   <div class="bg-ambient-layer">

@@ -1,5 +1,5 @@
 /* Abhiram Pradhan Portfolio - Service Worker (PWA offline support) */
-const CACHE_NAME = 'abhiram-core-portfolio-v2';
+const CACHE_NAME = 'abhiram-core-portfolio-v3';
 const APP_SHELL = [
   './',
   './index.html',
