@@ -2638,7 +2638,7 @@ footer {
 
 /* ==========================================================================
    INTERACTIVE INTRO LOADER
-   Particles react to mouse, cursor glow, terminal typing, bouncing dot
+   Terminal typing, bouncing dot, progress bar
    ========================================================================== */
 body.loader-active {
   overflow: hidden;
@@ -2665,15 +2665,6 @@ body.loader-active {
   pointer-events: none;
 }
 
-/* -- Mouse-reactive particle canvas -- */
-.loader-particles {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
 
 /* -- Click ripple rings -- */
 .loader-click-rings {
@@ -3067,8 +3058,7 @@ body.loader-active {
 
 /* -- Respect reduced-motion preferences -- */
 @media (prefers-reduced-motion: reduce) {
-  .loader-hopper,
-  .loader-particles {
+  .loader-hopper {
     display: none;
   }
 

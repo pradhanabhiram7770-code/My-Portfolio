@@ -4,7 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 0. Interactive Intro Loader: particles, cursor glow, terminal typing, hopping dot
+  // 0. Interactive Intro Loader: terminal typing, hopping dot
   (function initIntroLoader() {
     const loader = document.getElementById('loader-screen');
     if (!loader) return;
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const wordEl = document.getElementById('loader-word');
     const logoEl = document.getElementById('loader-logo');
     const periodEl = document.getElementById('dev-dot');
-    const canvas = document.getElementById('loader-particles');
     const clickRings = document.getElementById('loader-click-rings');
     const percentEl = document.getElementById('loader-percent');
     const terminalText = document.getElementById('terminal-text');
@@ -37,117 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let removeTimer = 0;
 
     document.body.classList.add('loader-active');
-
-    // ============ A) Ambient particle field ============
-    const ctx = canvas ? canvas.getContext('2d') : null;
-    let particles = [];
-    // Desktop/web gets the full particle field; phones and the installed app get fewer for smoother visuals
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-    const isSmallScreen = window.innerWidth < 768;
-    const isTouchDeviceLoader = window.matchMedia('(hover: none)').matches;
-    const showLinks = !isSmallScreen && !isStandalone;
-    const PARTICLE_COUNT = 1000;
-
-    function resizeCanvas() {
-      if (!canvas) return;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    function spawnParticles() {
-      if (!canvas) return;
-      particles = [];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        particles.push({
-          x: x,
-          y: y,
-          homeX: x,
-          homeY: y,
-          vx: 0,
-          vy: 0,
-          r: Math.random() * (isSmallScreen ? 1.4 : 2) + (isSmallScreen ? 0.45 : 0.6),
-          hue: Math.random() < 0.6 ? 199 : 262,
-          pulse: Math.random() * Math.PI * 2
-        });
-      }
-    }
-
-    function drawParticles() {
-      if (!ctx || !canvas || done) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      // Spatial grid keeps line-linking fast (avoids O(n^2) lag)
-      const LINK_DIST = 110;
-      const CELL = LINK_DIST;
-      const grid = new Map();
-      const cellKey = (cx, cy) => cx + ',' + cy;
-      for (const p of particles) {
-        const key = cellKey(Math.floor(p.x / CELL), Math.floor(p.y / CELL));
-        let bucket = grid.get(key);
-        if (!bucket) { bucket = []; grid.set(key, bucket); }
-        bucket.push(p);
-      }
-
-      for (const p of particles) {
-        // Home spring + damping for a smooth, soft glide
-        p.vx += (p.homeX - p.x) * 0.02;
-        p.vy += (p.homeY - p.y) * 0.02;
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        p.vx *= 0.94;
-        p.vy *= 0.94;
-
-        // Wrap around edges
-        if (p.x < -20) p.x = canvas.width + 20;
-        if (p.x > canvas.width + 20) p.x = -20;
-        if (p.y < -20) p.y = canvas.height + 20;
-        if (p.y > canvas.height + 20) p.y = -20;
-
-        // Pulsing brightness
-        p.pulse += 0.03;
-        const alpha = (0.3 + Math.sin(p.pulse) * 0.2 + 0.15) * (isSmallScreen ? 0.6 : 1);
-
-        ctx.beginPath();
-        ctx.fillStyle = 'hsla(' + p.hue + ', 90%, 65%, ' + Math.max(0.05, alpha) + ')';
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Connect nearby particles with faint lines (constellation feel).
-        // Skipped on phones/installed app where it only adds visual fog.
-        if (showLinks) {
-          const cx = Math.floor(p.x / CELL);
-          const cy = Math.floor(p.y / CELL);
-          for (let gx = cx - 1; gx <= cx + 1; gx++) {
-            for (let gy = cy - 1; gy <= cy + 1; gy++) {
-              const bucket = grid.get(cellKey(gx, gy));
-              if (!bucket) continue;
-              for (const q of bucket) {
-                if (q === p) continue;
-                const qdx = p.x - q.x;
-                const qdy = p.y - q.y;
-                const qdist = qdx * qdx + qdy * qdy;
-                if (qdist < LINK_DIST * LINK_DIST) {
-                  const a = (1 - Math.sqrt(qdist) / LINK_DIST) * 0.08;
-                  ctx.strokeStyle = 'hsla(199, 90%, 65%, ' + a + ')';
-                  ctx.lineWidth = 0.6;
-                  ctx.beginPath();
-                  ctx.moveTo(p.x, p.y);
-                  ctx.lineTo(q.x, q.y);
-                  ctx.stroke();
-                }
-              }
-            }
-          }
-        }
-      }
-      requestAnimationFrame(drawParticles);
-    }
 
     // ============ C) Click ripple rings ============
     function spawnClickRing(clientX, clientY) {
@@ -379,11 +267,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ---------- Boot ----------
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      spawnParticles();
-    });
-
     // Guarantee "ABHIRAM.CORE" always fits: measure and scale down via a CSS var.
     function fitLoaderWord() {
       if (!wordEl || !loader) return;
@@ -400,9 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', fitLoaderWord);
     fitLoaderWord();
 
-    resizeCanvas();
-    spawnParticles();
-    requestAnimationFrame(drawParticles);
     runTerminal();
 
     // Loader stays on screen until the user clicks "Let's Go" - no auto-dismiss.
