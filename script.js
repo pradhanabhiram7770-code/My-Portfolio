@@ -38,13 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.body.classList.add('loader-active');
 
-    // ============ A) Mouse-reactive particle field ============
+    // ============ A) Ambient particle field ============
     const ctx = canvas ? canvas.getContext('2d') : null;
     let particles = [];
-    let mouse = { x: -9999, y: -9999 };
-    let prevMouse = { x: -9999, y: -9999 };
-    let flowX = 0;
-    let flowY = 0; // smoothed cursor velocity, drives the interactive follow
     // Desktop/web gets the full particle field; phones and the installed app get fewer for smoother visuals
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
     const isSmallScreen = window.innerWidth < 768;
@@ -84,16 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      // Smoothed cursor speed -> a 0..1 "intensity" factor (0 = still, 1 = fast flick)
-      const rawVX = mouse.x - prevMouse.x;
-      const rawVY = mouse.y - prevMouse.y;
-      prevMouse.x = mouse.x;
-      prevMouse.y = mouse.y;
-
-      flowX += (rawVX - flowX) * 0.12;
-      flowY += (rawVY - flowY) * 0.12;
-      const flowMag = Math.min(1, Math.hypot(flowX, flowY) / 24);
-
       // Spatial grid keeps line-linking fast (avoids O(n^2) lag)
       const LINK_DIST = 110;
       const CELL = LINK_DIST;
@@ -107,18 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       for (const p of particles) {
-        const dx = mouse.x - p.x;
-        const dy = mouse.y - p.y;
-        const dist = Math.hypot(dx, dy);
-        const influence = isSmallScreen ? 340 : 250;
-
-        if (dist < influence && dist > 0.01) {
-          // Follow force scaled by cursor speed: still cursor = gentle, fast = dots chase harder.
-          const pull = (1 - dist / influence) * (0.3 + flowMag * (isSmallScreen ? 0.62 : 0.42));
-          p.vx += (dx / dist) * pull;
-          p.vy += (dy / dist) * pull;
-        }
-
         // Home spring + damping for a smooth, soft glide
         p.vx += (p.homeX - p.x) * 0.02;
         p.vy += (p.homeY - p.y) * 0.02;
@@ -402,12 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Any tap/click during the intro spawns a ripple
     document.addEventListener('pointerdown', (e) => {
       if (!done) spawnClickRing(e.clientX, e.clientY);
-    });
-
-    // Pointer move -> particles react to the cursor
-    document.addEventListener('pointermove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
     });
 
     // ---------- Boot ----------
