@@ -289,6 +289,40 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(tick);
   })();
 
+  // 0.1 Interactive Section Titles: split into letters and cascade in on scroll
+  (function initHeadingReveal() {
+    const titles = document.querySelectorAll('.section-title');
+    if (!titles.length) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canObserve = 'IntersectionObserver' in window;
+    if (reduced || !canObserve) return;
+
+    titles.forEach((title) => {
+      const text = title.textContent;
+      title.setAttribute('aria-label', text);
+      title.textContent = '';
+      Array.from(text).forEach((ch, i) => {
+        const span = document.createElement('span');
+        span.className = 'title-ltr';
+        span.style.setProperty('--li', i);
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        title.appendChild(span);
+      });
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '0px 0px -10% 0px' });
+
+    titles.forEach((title) => io.observe(title));
+  })();
+
   // 1. Theme Switcher (Pure Black <-> Pure White)
   const themeToggleBtn = document.getElementById('theme-toggle');
   
