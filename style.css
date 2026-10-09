@@ -319,7 +319,7 @@ nav {
 }
 
 /* Trendy Theme Toggle Switch */
- {
+.theme-toggle-btn {
   background: var(--badge-bg);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
@@ -336,27 +336,27 @@ nav {
   overflow: hidden;
 }
 
- {
+.theme-toggle-btn:hover {
   border-color: var(--border-color-hover);
   background: var(--bg-card-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }
 
- {
+.theme-toggle-btn .sun-icon {
   display: none;
 }
 
- {
+.theme-toggle-btn .moon-icon {
   display: block;
 }
 
-[data-theme="light"]  {
+[data-theme="light"] .theme-toggle-btn .sun-icon {
   display: block;
   color: #ea580c;
 }
 
-[data-theme="light"]  {
+[data-theme="light"] .theme-toggle-btn .moon-icon {
   display: none;
 }
 
