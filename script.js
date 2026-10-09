@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateThemeImages(theme) {
     const heroImg = document.getElementById('hero-profile-img');
     const navImg = document.getElementById('nav-profile-img');
-    const imageSrc = theme === 'light' ? 'profile-light.jpg' : 'profile-dark.jpg';
+    const imageSrc = theme === 'light' ? 'abhi white bg.png' : 'abhi-black-bg.png';
     if (heroImg) heroImg.src = imageSrc;
     if (navImg) navImg.src = imageSrc;
   }
@@ -236,12 +236,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const typewriterOutput = document.getElementById('typewriter-output');
   if (typewriterOutput) {
     const textPhrases = [
-      "<span class='gradient-text'>Full-Stack Web Development</span>",
-      "<span class='gradient-text'>Database Administration &amp; SQL</span>",
-      "<span class='gradient-text'>Data Analytics &amp; Dashboards</span>",
-      "<span class='gradient-text'>AI/ML &amp; RAG Model Engineering</span>",
-      "<span class='gradient-text'>REST APIs &amp; Backend Systems</span>",
-      "<span class='gradient-text'>Cloud Deployment &amp; DevOps</span>"
+      "<span class='gradient-text'>Arduino &amp; Embedded Systems</span>",
+      "<span class='gradient-text'>Electronics &amp; Circuit Design</span>",
+      "<span class='gradient-text'>IoT &amp; Sensor Networks</span>",
+      "<span class='gradient-text'>Embedded C/C++ Programming</span>",
+      "<span class='gradient-text'>Microcontrollers &amp; Prototyping</span>",
+      "<span class='gradient-text'>Communication Systems &amp; Signals</span>"
     ];
 
     let phraseIndex = 0;
@@ -635,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
       name: "Your Secondary School Name",
       board: "Board · Your City",
       score: "00% Aggregate",
-      desc: "Completed secondary education with strong fundamentals in Mathematics, Science and Computer Science.",
+      desc: "Completed secondary education with strong fundamentals in Mathematics, Science and introductory electronics.",
       image: "school-10-logo.jpg",
       link: "https://example.com",
       result: "10TH_RESULT.pdf",
@@ -646,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
       name: "Your Senior Secondary School / College",
       board: "Board / University · Your City",
       score: "00% Aggregate",
-      desc: "Completed Class 12th / Intermediate in the Science stream, focusing on Mathematics, Physics, Chemistry and Computer Science.",
+      desc: "Completed Class 12th / Intermediate in the Science stream, focusing on Mathematics, Physics and Chemistry — the foundation for engineering.",
       image: "school-12-logo.jpg",
       link: "https://example.com",
       result: "12TH_RESULT.pdf",
@@ -657,8 +657,8 @@ document.addEventListener('DOMContentLoaded', () => {
       name: "Your College of Engineering & Technology",
       board: "Affiliating University · Your City",
       score: "0.00 CGPA",
-      desc: "Pursuing B.Tech in Computer Science & Engineering with specialization in Database Management, AI/ML, Data Engineering and Backend Architecture.",
-      image: "college-logo.jpg",
+      desc: "Pursuing B.Tech in Electronics & Communication Engineering with specialization in Embedded Systems, Microcontrollers, Embedded C/C++, IoT and Communication Systems.",
+      image: "abhi-black-bg.png",
       link: "https://example.com",
       result: null,
       ratio: 1.0    // highlight the full path to the destination
