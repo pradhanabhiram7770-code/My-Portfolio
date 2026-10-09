@@ -2675,22 +2675,6 @@ body.loader-active {
   pointer-events: none;
 }
 
-/* -- Cursor-following glow orb -- */
-.loader-cursor-glow {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  left: 0;
-  top: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 70%);
-  z-index: 1;
-  pointer-events: none;
-  will-change: transform;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: screen;
-}
-
 /* -- Click ripple rings -- */
 .loader-click-rings {
   position: absolute;
@@ -3055,11 +3039,6 @@ body.loader-active {
   .loader-word .dev-dot,
   .loader-word .dev-ltr {
     font-size: var(--loader-fs, clamp(1.5rem, min(12vw, calc(8.4vw - 2px)), 4.2rem));
-  }
-
-  /* Keep the screen clean and fast: no hazy blend orb on phones */
-  .loader-cursor-glow {
-    display: none;
   }
 
   .loader-hopper {

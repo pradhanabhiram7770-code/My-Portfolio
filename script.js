@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoEl = document.getElementById('loader-logo');
     const periodEl = document.getElementById('dev-dot');
     const canvas = document.getElementById('loader-particles');
-    const cursorGlow = document.getElementById('loader-cursor-glow');
     const clickRings = document.getElementById('loader-click-rings');
     const percentEl = document.getElementById('loader-percent');
     const terminalText = document.getElementById('terminal-text');
@@ -174,21 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       requestAnimationFrame(drawParticles);
-    }
-
-    // ============ B) Cursor glow orb (smooth lerp follow) ============
-    let glowX = window.innerWidth / 2;
-    let glowY = window.innerHeight / 2;
-    let targetX = glowX;
-    let targetY = glowY;
-
-    function tickCursorGlow() {
-      if (!cursorGlow || done) return;
-      glowX += (targetX - glowX) * 0.16;
-      glowY += (targetY - glowY) * 0.16;
-      cursorGlow.style.transform =
-        'translate(' + (glowX - 40).toFixed(1) + 'px,' + (glowY - 40).toFixed(1) + 'px)';
-      requestAnimationFrame(tickCursorGlow);
     }
 
     // ============ C) Click ripple rings ============
@@ -420,18 +404,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!done) spawnClickRing(e.clientX, e.clientY);
     });
 
-    // Pointer move -> particles react & glow follows
+    // Pointer move -> particles react to the cursor
     document.addEventListener('pointermove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
-      targetX = e.clientX;
-      targetY = e.clientY;
-    });
-
-    // Keyboard-only users: glow follows a slight idle drift
-    document.addEventListener('keydown', () => {
-      targetX = window.innerWidth / 2;
-      targetY = window.innerHeight / 2;
     });
 
     // ---------- Boot ----------
@@ -459,12 +435,6 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     spawnParticles();
     requestAnimationFrame(drawParticles);
-    // Glow orb is pointless (and hazy) on touch-only devices
-    if (isTouchDeviceLoader) {
-      if (cursorGlow) cursorGlow.style.display = 'none';
-    } else {
-      requestAnimationFrame(tickCursorGlow);
-    }
     runTerminal();
 
     // Loader stays on screen until the user clicks "Let's Go" - no auto-dismiss.
