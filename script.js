@@ -328,12 +328,23 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const htmlRoot = document.documentElement;
 
+  let currentMilestone = 3;
+
+  function profileImageSrc(theme) {
+    const active = theme || htmlRoot.getAttribute('data-theme');
+    return active === 'light' ? 'abhi white bg.png' : 'abhi-black-bg.png';
+  }
+
   function updateThemeImages(theme) {
+    const imageSrc = profileImageSrc(theme);
     const heroImg = document.getElementById('hero-profile-img');
     const navImg = document.getElementById('nav-profile-img');
-    const imageSrc = theme === 'light' ? 'abhi white bg.png' : 'abhi-black-bg.png';
+    const loaderAvatar = document.getElementById('loader-avatar-img');
+    const spotlightImg = document.getElementById('spotlight-img');
     if (heroImg) heroImg.src = imageSrc;
     if (navImg) navImg.src = imageSrc;
+    if (loaderAvatar) loaderAvatar.src = imageSrc;
+    if (spotlightImg && currentMilestone === 3) spotlightImg.src = imageSrc;
   }
 
   // Retrieve saved theme or default to 'dark' (pure black)
@@ -976,7 +987,7 @@ document.addEventListener('DOMContentLoaded', () => {
       board: "Affiliating University · Your City",
       score: "0.00 CGPA",
       desc: "Pursuing B.Tech in Electronics & Communication Engineering with specialization in Embedded Systems, Microcontrollers, Embedded C/C++, IoT and Communication Systems.",
-      image: "abhi-black-bg.png",
+      get image() { return profileImageSrc(); },
       link: "https://example.com",
       result: null,
       ratio: 1.0    // highlight the full path to the destination
@@ -1023,6 +1034,9 @@ document.addEventListener('DOMContentLoaded', () => {
   window.selectAcademicMilestone = function (step) {
     const d = academicData[step];
     if (!d) return;
+
+    currentMilestone = step;
+
 
     // 1) Highlight the laser line up to the selected dot
     if (basePath && laserPath) {
