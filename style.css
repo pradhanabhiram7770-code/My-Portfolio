@@ -252,44 +252,52 @@ h1, h2, h3, h4 {
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   cursor: pointer;
-  transition: all var(--transition-fast);
   overflow: hidden;
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-smooth),
+              transform var(--transition-smooth);
 }
 .theme-toggle:hover {
   border-color: var(--border-color-hover);
   background: var(--bg-card-hover);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px var(--border-glow), var(--glow-cyan);
+  transform: translateY(-2px) scale(1.05);
+}
+.theme-toggle:active {
+  transform: translateY(0) scale(0.94);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
 }
 .theme-toggle i {
   position: relative;
   z-index: 2;
   font-size: 0.95rem;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform var(--transition-smooth);
 }
 .theme-toggle .fa-sun { color: #f59e0b; }
 .theme-toggle .fa-moon { color: #a1a1aa; }
+.theme-toggle:hover .fa-sun { transform: rotate(45deg) scale(1.12); }
+.theme-toggle:hover .fa-moon { transform: rotate(-22deg) scale(1.12); }
 [data-theme='light'] .theme-toggle .fa-sun { color: #f59e0b; }
 [data-theme='light'] .theme-toggle .fa-moon { color: #1f2937; }
 .theme-toggle-indicator {
   position: absolute;
-  left: 4px;
+  left: 17px;
   top: 4px;
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: var(--accent-gradient);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 1;
 }
 [data-theme='light'] .theme-toggle-indicator {
-  transform: translateX(44px);
+  transform: translateX(24px);
 }
-
-.theme-toggle { position: relative; display: flex; align-items: center; gap: 10px; background: var(--badge-bg); border: 1px solid var(--border-color); color: var(--text-primary); height: 42px; padding: 0 10px; border-radius: 999px; cursor: pointer; overflow: hidden; }
-.theme-toggle i { font-size: 1rem; z-index: 1; }
-.theme-toggle-indicator { position: absolute; left: 4px; width: 32px; height: 32px; border-radius: 50%; background: var(--accent-gradient); transition: transform 0.3s ease; }
-[data-theme="light"] .theme-toggle-indicator { transform: translateX(28px); }
 /* ==========================================================================
    HEADER & NAVBAR
    ========================================================================== */
