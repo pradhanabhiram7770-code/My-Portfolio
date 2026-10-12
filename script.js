@@ -983,12 +983,12 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     3: {
       badge: "Current Degree", year: "2023 – 2027",
-      name: "Your College of Engineering & Technology",
-      board: "Affiliating University · Your City",
+      name: "KMBB College of Engineering & Technology",
+      board: "BPUT · Bhubaneswar, Odisha",
       score: "0.00 CGPA",
       desc: "Pursuing B.Tech in Electronics & Communication Engineering with specialization in Embedded Systems, Microcontrollers, Embedded C/C++, IoT and Communication Systems.",
       get image() { return profileImageSrc(); },
-      link: "https://example.com",
+      link: "https://www.kmbb.in/",
       result: null,
       ratio: 1.0    // highlight the full path to the destination
     }
