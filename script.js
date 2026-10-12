@@ -1206,8 +1206,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // While a tab click triggers a programmatic smooth scroll, hold the
+  // scroll-spy so it doesn't yank the pill through every intermediate
+  // section instead of gliding straight to the clicked tab.
+  let suppressScrollSpy = false;
+  let suppressScrollSpyTimer = null;
+  function holdScrollSpy() {
+    suppressScrollSpy = true;
+    clearTimeout(suppressScrollSpyTimer);
+    suppressScrollSpyTimer = setTimeout(() => { suppressScrollSpy = false; }, 150);
+  }
+
   // Scroll-spy: light up the tab matching the section in view
   window.addEventListener('scroll', () => {
+    if (suppressScrollSpy) { holdScrollSpy(); return; }
     let currentId = '';
     sections.forEach(section => {
       const sectionTop = section.offsetTop - 140;
@@ -1229,6 +1241,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const el = document.querySelector(target);
       if (el) {
+        holdScrollSpy();
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         el.classList.remove('app-tab-target');
         void el.offsetWidth;
