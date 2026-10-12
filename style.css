@@ -712,47 +712,117 @@ nav {
   align-items: center;
 }
 
-/* Trendy Buttons */
+/* Trendy Glassy Interactive Buttons */
 .btn {
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 12px 26px;
-  border-radius: 14px;
+  padding: 13px 28px;
+  border-radius: 16px;
   font-size: 0.95rem;
   font-weight: 600;
+  letter-spacing: 0.2px;
   text-decoration: none;
   cursor: pointer;
-  transition: all var(--transition-fast);
-  border: none;
+  overflow: hidden;
+  border: 1px solid transparent;
   outline: none;
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.35s ease,
+              border-color 0.35s ease;
 }
 
+/* Sweeping light reflection (interactive sheen) */
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 55%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(105deg,
+              transparent 0%,
+              rgba(255, 255, 255, 0.55) 50%,
+              transparent 100%);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover::after {
+  left: 140%;
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.btn:active {
+  transform: translateY(-1px) scale(0.98);
+  transition-duration: 0.08s;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+}
+
+.btn i {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover i {
+  transform: translateX(3px);
+}
+
+/* Primary: glossy gradient glass with frosted highlight */
 .btn-primary {
-  background: var(--accent-gradient);
   color: #ffffff;
-  box-shadow: var(--shadow-sm);
+  border-color: rgba(255, 255, 255, 0.3);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
+    var(--accent-gradient);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.45),
+              inset 0 -8px 18px rgba(0, 0, 0, 0.12),
+              0 8px 22px rgba(56, 189, 248, 0.28);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
 .btn-primary:hover {
-  background: var(--accent-gradient-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--glow-cyan);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 55%),
+    var(--accent-gradient-hover);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.55),
+              inset 0 -8px 18px rgba(0, 0, 0, 0.12),
+              0 14px 36px rgba(99, 102, 241, 0.42),
+              0 0 30px rgba(56, 189, 248, 0.35);
 }
 
+/* Secondary: frosted glass */
 .btn-secondary {
-  background: var(--bg-card);
   color: var(--text-primary);
-  border: 1px solid var(--border-color-hover);
-  backdrop-filter: blur(12px);
+  border-color: var(--border-color-hover);
+  background-color: var(--bg-card);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 50%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.28),
+              0 6px 18px rgba(0, 0, 0, 0.28);
 }
 
 .btn-secondary:hover {
-  background: var(--bg-card-hover);
+  background-color: var(--bg-card-hover);
   border-color: var(--border-glow);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35),
+              0 12px 30px rgba(0, 0, 0, 0.4),
+              0 0 22px rgba(56, 189, 248, 0.25);
 }
 
 /* Social Icon Pills */
