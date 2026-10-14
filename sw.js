@@ -1,5 +1,5 @@
 /* Abhiram Pradhan Portfolio - Service Worker (PWA offline support) */
-const CACHE_NAME = 'abhiram-core-portfolio-v4';
+const CACHE_NAME = 'abhiram-core-portfolio-v5';
 const APP_SHELL = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const APP_SHELL = [
   './profile-dark.jpg',
   './profile-light.jpg',
   './abhi-black-bg.png',
+  './kmbb-logo.png',
   './bulb-dark.png',
   './bulb-light.png'
 ];

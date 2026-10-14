@@ -987,7 +987,7 @@ document.addEventListener('DOMContentLoaded', () => {
       board: "BPUT · Bhubaneswar, Odisha",
       score: "0.00 CGPA",
       desc: "Pursuing B.Tech in Electronics & Communication Engineering with specialization in Embedded Systems, Microcontrollers, Embedded C/C++, IoT and Communication Systems.",
-      get image() { return profileImageSrc(); },
+      image: "kmbb-logo.png",
       link: "https://www.kmbb.in/",
       result: null,
       ratio: 1.0    // highlight the full path to the destination
