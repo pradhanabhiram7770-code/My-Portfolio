@@ -963,11 +963,11 @@ document.addEventListener('DOMContentLoaded', () => {
       badge: "Secondary School (10th)", year: "2020",
       name: "Govt Highschool Daringbadi",
       board: "BSE Odisha · Daringbadi",
-      score: "00% Aggregate",
+      score: "60% Aggregate",
       desc: "Completed secondary education with strong fundamentals in Mathematics, Science and introductory electronics.",
       image: "school-10-logo.jpg",
       link: "https://example.com",
-      result: "10TH_RESULT.pdf",
+      result: "10th mark.pdf",
       ratio: 0.02   // highlight only up to the first dot
     },
     2: {
