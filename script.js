@@ -960,9 +960,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // TODO: replace the placeholder details with your real institutions
   const academicData = {
     1: {
-      badge: "Secondary School (10th)", year: "2021",
-      name: "Your Secondary School Name",
-      board: "Board · Your City",
+      badge: "Secondary School (10th)", year: "2020",
+      name: "Govt Highschool Daringbadi",
+      board: "BSE Odisha · Daringbadi",
       score: "00% Aggregate",
       desc: "Completed secondary education with strong fundamentals in Mathematics, Science and introductory electronics.",
       image: "school-10-logo.jpg",
