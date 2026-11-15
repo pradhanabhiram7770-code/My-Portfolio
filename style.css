@@ -2075,6 +2075,24 @@ nav {
   object-fit: cover;
 }
 
+/* Resume download/view actions */
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Resume preview image (portrait, show the whole page) */
+.resume-preview-wrap {
+  height: 480px;
+}
+
+.resume-preview-img {
+  object-fit: contain;
+  object-position: top center;
+}
+
+
 .cert-info {
   display: flex;
   align-items: center;
