@@ -961,24 +961,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const academicData = {
     1: {
       badge: "Secondary School (10th)", year: "2020",
-      name: "Govt Highschool Daringbadi",
-      board: "BSE Odisha · Daringbadi",
-      score: "60% Aggregate",
-      desc: "Completed secondary education with strong fundamentals in Mathematics, Science and introductory electronics.",
+      name: "Govt High School, Daringbadi",
+      board: "BSE Odisha · Cuttack, Odisha",
+      score: "362 / 600 · 60.33%",
+      desc: "Completed secondary education at Govt High School, Daringbadi under BSE Odisha — securing 362/600 (60.33%) with strong fundamentals in Mathematics, Science and Information Technology.",
       image: "school-10-logo.jpg",
       link: "https://example.com",
       result: "10th mark.pdf",
       ratio: 0.02   // highlight only up to the first dot
     },
     2: {
-      badge: "Senior Secondary (12th)", year: "2023",
-      name: "Your Senior Secondary School / College",
-      board: "Board / University · Your City",
-      score: "00% Aggregate",
-      desc: "Completed Class 12th / Intermediate in the Science stream, focusing on Mathematics, Physics and Chemistry — the foundation for engineering.",
+      badge: "Senior Secondary (12th)", year: "2022",
+      name: "Govt H.S. School, Phulbani",
+      board: "CHSE Odisha · Bhubaneswar",
+      score: "352 / 600 · 58.67%",
+      desc: "Completed Class 12th / Intermediate in the Science stream (PCMB) at Govt H.S. School, Phulbani under CHSE Odisha — scoring 352/600 (58.67%), the foundation for engineering.",
       image: "school-12-logo.jpg",
       link: "https://example.com",
-      result: "12TH_RESULT.pdf",
+      result: "12th mark.pdf",
       ratio: 0.50   // highlight up to the midpoint curve
     },
     3: {
