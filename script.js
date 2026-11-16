@@ -835,6 +835,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); resetAutoPlay(); });
     if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); resetAutoPlay(); });
 
+    // --- Click a slide to open it full-size in a new tab (ignore drags) ---
+    let pointerDownX = null;
+    let pointerDownY = null;
+    slider.addEventListener('pointerdown', (e) => {
+      pointerDownX = e.clientX;
+      pointerDownY = e.clientY;
+    });
+    slider.addEventListener('pointerup', (e) => {
+      if (pointerDownX === null) return;
+      const moved = Math.abs(e.clientX - pointerDownX) + Math.abs(e.clientY - pointerDownY);
+      pointerDownX = null;
+      pointerDownY = null;
+      if (moved > 8) return;
+      if (!e.target.closest('.slider-track')) return;
+      const img = slides[current];
+      const src = img && img.getAttribute('src');
+      if (src) window.open(src, '_blank', 'noopener');
+    });
+    slider.addEventListener('pointercancel', () => { pointerDownX = null; pointerDownY = null; });
+
     // --- Auto-advance with progress animation ---
     let autoTimer = null;
     let rafId = null;
@@ -880,6 +900,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Init
     goTo(0, false);
     startAuto();
+  });
+
+  // 4.2 Static (non-slider) project images open full-size in a new tab on click
+  document.querySelectorAll('#projects .project-thumb:not(.slider-slide)').forEach(img => {
+    img.addEventListener('click', () => {
+      const src = img.getAttribute('src');
+      if (src) window.open(src, '_blank', 'noopener');
+    });
   });
 
   // 5. Initialize EmailJS & Contact Form
@@ -985,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', () => {
       badge: "Current Degree", year: "2023 – 2027",
       name: "KMBB College of Engineering & Technology",
       board: "BPUT · Bhubaneswar, Odisha",
-      score: "0.00 CGPA",
+      score: "8.75 CGPA",
       desc: "Pursuing B.Tech in Electronics & Communication Engineering with specialization in Embedded Systems, Microcontrollers, Embedded C/C++, IoT and Communication Systems.",
       image: "kmbb-logo.png",
       link: "https://www.kmbb.in/",
