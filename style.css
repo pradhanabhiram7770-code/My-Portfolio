@@ -2114,14 +2114,63 @@ nav {
   gap: 12px;
 }
 
-/* Resume preview image (portrait, show the whole page) */
+/* Resume preview image (compact, interactive) */
 .resume-preview-wrap {
-  height: 480px;
+  position: relative;
+  width: 50%;
+  max-width: 190px;
+  height: auto;
+  aspect-ratio: 1650 / 2135;
+  margin-inline: auto;
+  cursor: pointer;
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
 .resume-preview-img {
   object-fit: contain;
-  object-position: top center;
+  object-position: center;
+  transition: transform var(--transition-smooth);
+}
+
+.resume-preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #ffffff;
+  background: rgba(7, 14, 24, 0.72);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-smooth);
+}
+
+.resume-preview-overlay i {
+  font-size: 22px;
+}
+
+.resume-preview-overlay small {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.resume-preview-card:hover .resume-preview-wrap,
+.resume-preview-card:focus-visible .resume-preview-wrap {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+  transform: scale(1.05);
+}
+
+.resume-preview-card:hover .resume-preview-img,
+.resume-preview-card:focus-visible .resume-preview-img {
+  transform: scale(1.04);
+}
+
+.resume-preview-card:hover .resume-preview-overlay,
+.resume-preview-card:focus-visible .resume-preview-overlay {
+  opacity: 1;
 }
 
 
